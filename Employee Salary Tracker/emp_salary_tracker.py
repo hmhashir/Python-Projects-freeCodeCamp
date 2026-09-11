@@ -25,6 +25,7 @@ class Employee:
     def name(self, new_name):
         if not isinstance(new_name, str):
             raise TypeError("'name' must be a string.")
+
         self._name = new_name
         print(f"'name' updated to '{self.name}'.")
 
@@ -34,14 +35,19 @@ class Employee:
 
     @level.setter
     def level(self, new_level):
+
         if not isinstance(new_level, str):
             raise TypeError("'level' must be a string.")
+
         if new_level not in Employee._base_salaries:
             raise ValueError(f"Invalid value '{new_level}' for 'level' attribute.")
+
         if hasattr(self, '_level') and new_level == self.level:
             raise ValueError(f"'{self.level}' is already the selected level.")
+
         if hasattr(self, '_level') and Employee._base_salaries[new_level] < Employee._base_salaries[self.level]:
             raise ValueError("Cannot change to lower level.")
+
         print(f"'{self.name}' promoted to '{new_level}'.")
         self._salary = Employee._base_salaries[new_level]
         self._level = new_level
@@ -52,10 +58,13 @@ class Employee:
 
     @salary.setter
     def salary(self, new_salary):
+
         if not isinstance(new_salary, (int, float)):
             raise TypeError("'salary' must be a number.")
+
         if hasattr(self, '_level') and new_salary < Employee._base_salaries[self.level]:
             raise ValueError(f'Salary must be higher than minimum salary ${Employee._base_salaries[self.level]}.')
+
         self._salary = new_salary
         print(f'Salary updated to ${self.salary}.')
 
